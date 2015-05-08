@@ -12,16 +12,14 @@
 <style>
 .spirit {
 	position: absolute;
-	width: 30px;
-	height: 30px;
-	z-index: 5;
-	border: 1px;
-	background-color: green;
+	width: 50px;
+	height: 50px;
+	background-color: red;
 }
 </style>
 </head>
-<body style="height: 100%; margin: 0; padding: 0;">
-	<!-- <h1>test</h1> -->
+<body
+	style="width: 100%; height: 100%; margin: 0; padding: 0; position: absolute;">
 	<div id="canvas" style="position: relative; width: 100%; height: 100%;"></div>
 </body>
 <script type="text/javascript">
@@ -55,22 +53,33 @@ var canvas = document.getElementById("canvas"),
  // touch start listener
 
 function touchStart(event) {
+	  console.log('进入touchStart');	 
       event.preventDefault();
-      if (spirit ||! event.touches.length) return;
+      if (spirit ||! event.touches.length) 
+    	  spirit.remove();
       var touch = event.touches[0];
       startX = touch.pageX;
       startY = touch.pageY;
       spirit = document.createElement("div");
       spirit.className = "spirit";
-      spirit.style.left = startX;
-      spirit.style.top = startY;
+      spirit.style.left = startX + 'px';
+      spirit.style.top = startY + 'px';
       canvas.appendChild(spirit);
 }
 
-window.onload = function(){
-	//add touch start listener
-	canvas.addEventListener("touchstart", touchStart, false);
-};
+//add touch start listener
+canvas.addEventListener("touchstart", touchStart, false);
 
+
+function touchMove(event) {
+	event.preventDefault();
+	if (!spirit || !event.touches.length) return;
+	var touch = event.touches[0],
+	     x = touch.pageX - startX,
+	     y = touch.pageY - startY;
+	spirit.style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px)';     
+}
+ 
+canvas.addEventListener("touchmove", touchMove, false);
 </script>
 </html>
