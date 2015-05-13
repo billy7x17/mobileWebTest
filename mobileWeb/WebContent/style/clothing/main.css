@@ -5,10 +5,18 @@ body {
 }
 
 .rollingImage {
-	width: 100%;
 	height: 32%;
 	border-bottom: 2px;
 	border-bottom-color: white;
+	width: 100%;
+}
+
+.rollingImage img {
+	position : relative;
+	width: 125%;
+	height: 125%;
+	left: 0px;
+	top: 0px;
 }
 
 .content {
