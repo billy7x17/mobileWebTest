@@ -13,7 +13,7 @@
 </head>
 <body
 	style="width: 100%; height: 100%; margin: 0; padding: 0; position: absolute;">
-	<section class="rollingImage">
+	<section id="topSection" class="rollingImage">
 		<img id="topImg" alt="test" src="./style/image/Desert.jpg" />
 	</section>
 	<section class="content">
@@ -79,9 +79,14 @@
 					+ " y: " + gamma.toFixed(2) + " z: "
 					+ (alpha != null ? alpha.toFixed(2) : 0) */
 
-			var style = document.querySelector("#topImg").style;
-			style.left = gamma/90 * 200 -50 + "px";
-			style.top = beta/90 * 100 -50 + "px";
+			var topImg = document.querySelector("#topImg");
+			var width = topImg.offsetWidth;
+			var height = topImg.offsetHeight;
+			var secWidth = document.querySelector("#topSection").offsetWidth;
+			var secHeight = document.querySelector("#topSection").offsetHeight;
+			
+			topImg.style.left = (Math.abs(gamma/90 * 200 - 50)>Math.abs(width - secWidth)?gamma/Math.abs(gamma)*(width - secWidth):gamma/90 * 200 -50) + "px";
+			topImg.style.top = (Math.abs(beta/90 * 100 - 50)>Math.abs(height - secHeight)?beta/Math.abs(beta)*(height - secHeight):beta/90 * 100 - 50) + "px";
 
 			this._lastGamma = gamma;
 			this._lastBeta = beta;
