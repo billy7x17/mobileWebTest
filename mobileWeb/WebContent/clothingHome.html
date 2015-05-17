@@ -84,15 +84,35 @@
 			var height = topImg.offsetHeight;
 			var secWidth = document.querySelector("#topSection").offsetWidth;
 			var secHeight = document.querySelector("#topSection").offsetHeight;
-			
-			topImg.style.left = (Math.abs(gamma/90 * 200 - 50)>Math.abs(width - secWidth)?gamma/Math.abs(gamma)*(width - secWidth):gamma/90 * 200 -50) + "px";
-			topImg.style.top = (Math.abs(beta/90 * 100 - 50)>Math.abs(height - secHeight)?beta/Math.abs(beta)*(height - secHeight):beta/90 * 100 - 50) + "px";
+
+			var offsetLeft = gamma / 90 * 200;
+			var offsetTop = beta / 90 * 200;
+
+			if (offsetLeft >= 0)
+				offsetLeft = 0;
+			else if (offsetLeft < secWidth - width)
+				offsetLeft = secWidth - width;
+
+			if (offsetTop >= 0)
+				offsetTop = 0;
+			else if (offsetTop < secHeight - height)
+				offsetTop = secHeight - height;
+
+			topImg.style.left = offsetLeft + 'px';
+			topImg.style.top = offsetTop + 'px';
 
 			this._lastGamma = gamma;
 			this._lastBeta = beta;
 		}
 	};
 	(new Orientation()).init();
+
+	window.setInterval(function() {
+		var topImg = document.querySelector("#topImg");
+		console.log(topImg.style.left);
+		console.log(topImg.style.top);
+	}, 1000);
+	
 </script>
 <!-- 调试用js -->
 <script src="http://192.168.2.100:8081/target/target-script.js"></script>
